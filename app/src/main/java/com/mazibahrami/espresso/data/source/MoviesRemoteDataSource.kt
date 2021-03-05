@@ -4,7 +4,7 @@ import com.mazibahrami.espresso.data.DummyMovies.INFINITY_WAR
 import com.mazibahrami.espresso.data.DummyMovies.THE_RUNDOWN
 import com.mazibahrami.espresso.data.Movie
 
-object MoviesRemoteDataSource: MoviesDataSource {
+class MoviesRemoteDataSource: MoviesDataSource {
 
     private var MOVIES_REMOTE_DATA = LinkedHashMap<Int, Movie>(2)
 

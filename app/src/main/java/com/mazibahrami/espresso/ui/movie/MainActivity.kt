@@ -2,15 +2,26 @@ package com.mazibahrami.espresso.ui.movie
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.request.RequestOptions
 import com.mazibahrami.espresso.R
+import com.mazibahrami.espresso.data.source.MoviesDataSource
+import com.mazibahrami.espresso.data.source.MoviesRemoteDataSource
 import com.mazibahrami.espresso.databinding.ActivityMainBinding
 import com.mazibahrami.espresso.factory.MovieFragmentFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    // dependencies (typically would be injected with dagger)
+    lateinit var requestOptions: RequestOptions
+    lateinit var moviesDataSource: MoviesDataSource
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = MovieFragmentFactory()
+        initDependencies()
+        supportFragmentManager.fragmentFactory = MovieFragmentFactory(
+            requestOptions,
+            moviesDataSource
+        )
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -28,6 +39,16 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MovieDetailFragment::class.java, bundle)
                 .commit()
         }
+    }
+
+    private fun initDependencies() {
+        // glide
+        requestOptions = RequestOptions
+            .placeholderOf(R.drawable.default_image)
+            .error(R.drawable.default_image)
+
+        // data source
+        moviesDataSource = MoviesRemoteDataSource()
     }
 
 }
