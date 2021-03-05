@@ -8,6 +8,7 @@ import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import com.mazibahrami.espresso.MainActivity.Companion.buildToastMessage
 import org.hamcrest.Matchers.not
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,5 +37,8 @@ class MainActivityTest {
 
         // confirm name is set to TextView in activity
         onView(withId(R.id.text_name)).check(matches(withText(EXPECTED_NAME)))
+
+        onView(withText(buildToastMessage(EXPECTED_NAME))).inRoot(ToastMatcher())
+            .check(matches(isDisplayed()))
     }
 }
