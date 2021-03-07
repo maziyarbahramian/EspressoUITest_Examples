@@ -15,6 +15,7 @@ import com.mazibahrami.espresso.data.Movie
 import com.mazibahrami.espresso.data.source.MoviesDataSource
 import com.mazibahrami.espresso.databinding.FragmentMovieListBinding
 import com.mazibahrami.espresso.ui.UICommunicationListener
+import com.mazibahrami.espresso.util.EspressoIdlingResource
 import com.mazibahrami.espresso.util.TopSpacingItemDecoration
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -61,6 +62,7 @@ class MovieListFragment(
     }
 
     private fun getData() {
+        EspressoIdlingResource.increment()
         uiCommunicationListener.loading(true)
         val job = GlobalScope.launch(IO) {
             delay(FAKE_NETWORK_DELAY)
@@ -69,6 +71,7 @@ class MovieListFragment(
             GlobalScope.launch(Main) {
                 uiCommunicationListener.loading(false)
                 listAdapter.submitList(moviesDataSource.getMovies())
+                EspressoIdlingResource.decrement()
             }
         }
     }
