@@ -9,30 +9,27 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.mazibahrami.espresso.R
 import com.mazibahrami.espresso.factory.MovieFragmentFactory
+import com.mazibahrami.espresso.ui.movie.DirectorsFragment.Companion.stringBuilderForDirectors
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class DirectorsFragmentTest {
     @Test
-    fun test_isActorsListVisible() {
+    fun test_isDirectorsListVisible() {
         // GIVEN
-        val actors = arrayListOf(
-            "Dwayne Johnson",
-            "Seann William Scott",
-            "Rosario Dawson",
-            "Christopher Walken"
-        )
+        val directors = arrayListOf("R.J. Stewart", "James Vanderbilt")
+        val verifyDirectorsValue = stringBuilderForDirectors(directors)
         val fragmentFactory = MovieFragmentFactory(null, null)
         val bundle = Bundle()
-        bundle.putStringArrayList("args_actors", actors)
-        val scenario = launchFragmentInContainer<StarActorsFragment>(
+        bundle.putStringArrayList("args_directors", directors)
+        val scenario = launchFragmentInContainer<DirectorsFragment>(
             fragmentArgs = bundle,
             factory = fragmentFactory
         )
 
         // VERIFY
-        onView(withId(R.id.star_actors_text))
-            .check(matches(withText(StarActorsFragment.stringBuilderForStarActors(actors))))
+        val check = onView(withId(R.id.directors_text))
+            .check(matches(withText(verifyDirectorsValue)))
     }
 }

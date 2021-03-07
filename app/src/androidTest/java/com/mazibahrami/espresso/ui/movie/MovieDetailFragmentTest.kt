@@ -9,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.bumptech.glide.request.RequestOptions
 import com.mazibahrami.espresso.R
-import com.mazibahrami.espresso.data.DummyMovies.THE_RUNDOWN
 import com.mazibahrami.espresso.data.Movie
 import com.mazibahrami.espresso.data.source.MoviesDataSource
 import com.mazibahrami.espresso.data.source.MoviesRemoteDataSource
