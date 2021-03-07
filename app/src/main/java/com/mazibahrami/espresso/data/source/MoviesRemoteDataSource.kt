@@ -1,24 +1,28 @@
 package com.mazibahrami.espresso.data.source
 
-import com.mazibahrami.espresso.data.DummyMovies.INFINITY_WAR
-import com.mazibahrami.espresso.data.DummyMovies.THE_RUNDOWN
+import com.mazibahrami.espresso.data.FakeMovieData
 import com.mazibahrami.espresso.data.Movie
 
-class MoviesRemoteDataSource: MoviesDataSource {
+class MoviesRemoteDataSource : MoviesDataSource {
 
-    private var MOVIES_REMOTE_DATA = LinkedHashMap<Int, Movie>(2)
+    private var movieRemoteData = LinkedHashMap<Int, Movie>(2)
 
     init {
-        addMovie(INFINITY_WAR)
-        addMovie(THE_RUNDOWN)
+        for (movie in FakeMovieData.movies) {
+            addMovie(movie)
+        }
     }
 
     override fun getMovie(movieId: Int): Movie? {
-        return MOVIES_REMOTE_DATA[movieId]
+        return movieRemoteData[movieId]
     }
 
-    private fun addMovie(movie: Movie){
-        MOVIES_REMOTE_DATA.put(movie.id, movie)
+    override fun getMovies(): List<Movie> {
+        return ArrayList(movieRemoteData.values)
+    }
+
+    private fun addMovie(movie: Movie) {
+        movieRemoteData[movie.id] = movie
     }
 
 

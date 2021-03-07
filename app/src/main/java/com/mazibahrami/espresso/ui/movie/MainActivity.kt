@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             val bundle = Bundle()
             bundle.putInt("movie_id", movieId)
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MovieDetailFragment::class.java, bundle)
+                .replace(R.id.container, MovieListFragment::class.java, bundle)
                 .commit()
         }
     }
