@@ -1,6 +1,7 @@
 package com.mazibahrami.espresso.ui.movie
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.request.RequestOptions
 import com.mazibahrami.espresso.R
@@ -8,8 +9,9 @@ import com.mazibahrami.espresso.data.source.MoviesDataSource
 import com.mazibahrami.espresso.data.source.MoviesRemoteDataSource
 import com.mazibahrami.espresso.databinding.ActivityMainBinding
 import com.mazibahrami.espresso.factory.MovieFragmentFactory
+import com.mazibahrami.espresso.ui.UICommunicationListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UICommunicationListener {
     private lateinit var binding: ActivityMainBinding
 
     // dependencies (typically would be injected with dagger)
@@ -49,6 +51,13 @@ class MainActivity : AppCompatActivity() {
 
         // data source
         moviesDataSource = MoviesRemoteDataSource()
+    }
+
+    override fun loading(isLoading: Boolean) {
+        if (isLoading)
+            binding.progressBar.visibility = View.VISIBLE
+        else
+            binding.progressBar.visibility = View.INVISIBLE
     }
 
 }

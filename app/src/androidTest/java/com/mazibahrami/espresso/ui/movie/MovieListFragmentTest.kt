@@ -11,6 +11,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.mazibahrami.espresso.R
 import com.mazibahrami.espresso.data.FakeMovieData
 import com.mazibahrami.espresso.ui.movie.MoviesListAdapter.*
+import org.hamcrest.Matchers.not
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -31,6 +32,8 @@ class MovieListFragmentTest {
     @Test
     fun test_isListFragmentVisible_onAppLaunch() {
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
     }
 
     /*
